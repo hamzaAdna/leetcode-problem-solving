@@ -1,0 +1,18 @@
+SEELCT 
+ DB.name 'Department'
+,EM.name 'Employee'
+,EM.salary
+FROM 
+  Employee EM
+  join Department DB 
+    on em.departmentId = dp.id 
+where 
+  EM.salary = 
+        ( 
+            SELECT 
+                MAX(salary) 
+            FROM 
+                Employee 
+            where
+                departmentId = DB.id
+          )
