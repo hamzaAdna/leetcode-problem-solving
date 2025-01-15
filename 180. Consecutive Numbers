@@ -1,0 +1,20 @@
+WITH ConsecutiveNumbers AS (
+    SELECT 
+        num,
+        ROW_NUMBER() OVER (ORDER BY id) 'rn',
+        LEAD(num) OVER (ORDER BY id) 'next_number',
+        LAG(num) OVER (ORDER BY id) 'prev_number'
+    FROM 
+        Logs
+)
+SELECT 
+    num 'ConsecutiveNums'
+FROM 
+    ConsecutiveNumbers
+WHERE 
+    (num = prev_number OR num = Null) 
+    AND num = next_number
+GROUP BY
+    num
+HAVING 
+    COUNT(*) > 0
