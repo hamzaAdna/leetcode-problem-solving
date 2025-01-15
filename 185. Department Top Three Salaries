@@ -1,0 +1,22 @@
+
+WITH RankingSalaryByDepartmentAndSalary As
+    (
+
+        SELECT
+            D.name 'Department'
+            ,E.name 'Employee'
+            ,E.salary 'Salary'
+            ,DENSE_RANK() OVER (PARTITION BY E.DepartmentId ORDER BY E.Salary DESC) 'RankNumber'
+        FROM
+            Employee E
+            INNER JOIN Department D
+                ON E.DepartmentId = D.Id
+    )
+SELECT
+    Department
+    ,Employee
+    ,Salary
+FROM
+    RankingSalaryByDepartmentAndSalary
+WHERE
+    RankNumber <= 3
