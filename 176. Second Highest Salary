@@ -1,0 +1,14 @@
+WITH secondHSlary AS
+			(
+                SELECT 
+                    Salary
+                   ,DENSE_RANK () OVER (ORDER BY Salary desc)  'RANK2'
+			    FROM 
+                    Employee
+            )
+SELECT
+    MAX(salary) 'SecondHighestSalary'
+FROM
+    secondHSlary
+ WHERE
+    RANK2 = 2
