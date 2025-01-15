@@ -1,0 +1,23 @@
+class Solution(object):
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        # dictionary for number with roman chars
+        romanI = {
+            1000: 'M', 900: 'CM', 500: 'D', 400: 'CD', 
+            100: 'C', 90: 'XC', 50: 'L', 40: 'XL', 
+            10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'
+        }
+        
+        roman = ""  # insert the roman chars
+        
+        # Process each value from the largest to the smallest
+        for value in sorted(romanI.keys(), reverse=True):
+            while num >= value:
+                roman += romanI[value]  # Add the Roman chars for this place value
+                num -= value  # Subtract the value from the number
+
+        return roman
+
