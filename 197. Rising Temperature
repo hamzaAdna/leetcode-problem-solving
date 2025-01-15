@@ -1,0 +1,19 @@
+
+WITH tblMAX AS 
+    (
+        SELECT
+            id
+            ,MAX(temperature) 'MaxTemp'
+        FROM
+            Weather 
+        GROUP BY 
+            Id
+    )
+SELECT
+    Id
+FROM
+    tblMAX
+ORDER BY
+    MaxTemp DESC 
+    ,id ASC
+LIMIT 2
