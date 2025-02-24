@@ -1,0 +1,20 @@
+WITH tblTemp AS 
+    (
+        SELECT 
+            *
+            ,id - ROW_NUMBER() OVER(ORDER BY id) 'Ids'
+        FROM 
+            stadium
+        WHERE
+             people > 99
+    )
+SELECT
+     id
+     ,visit_date
+     ,people
+FROM
+     tblTemp
+WHERE 
+    Ids in (SELECT Ids FROM tblTemp GROUP BY Ids HAVING COUNT(*) > 2)
+ORDER BY
+    visit_date
